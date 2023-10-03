@@ -1,0 +1,8 @@
+.img {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+.pokecard {
+  view-transition-name: var(--view-transition-name, pokemon-card);
+}

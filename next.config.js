@@ -1,4 +1,16 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        // pokemon sprite graphics
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        port: "",
+        // pathname: '/account123/**',
+      },
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
