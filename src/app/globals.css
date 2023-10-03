@@ -2,26 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer components {
+  .btn {
+    @apply bg-blue-200 text-black p-2 rounded-md;
   }
-}
+  .btn:disabled {
+    @apply bg-gray-200;
+  }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .link {
+    @apply underline bg-blue-50 hover:bg-blue-200 active:bg-blue-200 visited:bg-violet-50;
+  }
+
+  .h1 {
+    @apply text-4xl;
+  }
+
+  .h2 {
+    @apply text-3xl;
+  }
+
+  .h3 {
+    @apply text-2xl;
+  }
+
+  .h4 {
+    @apply text-xl;
+  }
+
+  .input {
+    all: revert;
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .input-container {
+    @apply flex flex-col;
+  }
+
+  .input-container[aria-invalid="true"] .input-label,
+  .input-container[aria-invalid="true"] legend,
+  .input-container:has([aria-invalid="true"]) .input-label,
+  .input-container:has([aria-invalid="true"]) legend {
+    @apply text-red-700;
+  }
+
+  .input-error-message {
+    @apply text-sm italic text-red-700;
+  }
+
+  .input-label {
+    @apply font-semibold;
+  }
+
+  .input-hint {
+    @apply text-sm;
+  }
+
+  .message {
+    @apply rounded-md bg-slate-100 font-semibold p-2;
+  }
+
+  .message--error {
+    @apply bg-red-700 text-white;
+  }
+
+  .message--success {
+    @apply bg-green-700 text-white;
+  }
+
+  .pokegrid {
+    grid-template-columns: repeat(auto-fit, 250px);
+    @apply grid gap-2;
+  }
 }
