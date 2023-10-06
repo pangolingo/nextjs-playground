@@ -21,9 +21,9 @@ export default function Home() {
           <small>
             Photo by{" "}
             <a href="https://unsplash.com/@gojomike?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
-              Michael Rivera
+              Michael Rivera{" "}
             </a>
-            on
+            on{" "}
             <a href="https://unsplash.com/photos/DypO_XgAE4Y?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
               Unsplash
             </a>

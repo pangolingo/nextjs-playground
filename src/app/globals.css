@@ -4,7 +4,7 @@
 
 @layer components {
   .btn {
-    @apply bg-blue-200 text-black p-2 rounded-md;
+    @apply bg-blue-200 text-black p-2 rounded-md inline-block;
   }
   .btn:disabled {
     @apply bg-gray-200;
