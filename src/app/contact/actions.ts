@@ -2,16 +2,25 @@
 
 import { saveMessage } from "@/lib/database/messages";
 import { ErrorResponse, joiErrorsToMessages } from "@/lib/validation";
-import { ExpectedFormData, ContactFormSchema } from "@/lib/validation/contact";
+import { ContactFormSchema, ExpectedFormData } from "@/lib/validation/contact";
 import { getSession } from "@auth0/nextjs-auth0";
 import Joi from "joi";
-import { NextApiRequest, NextApiResponse } from "next";
 
-// export default async function submit(formData: FormData) {
-export async function POST(request: NextApiRequest, response: NextApiResponse) {
-  // @ts-expect-error
-  const formData = await request.formData();
+export interface FormErrorState {
+  errors: ErrorResponse<ExpectedFormData>;
+}
+export interface FormSuccessstate {
+  success: true;
+}
+
+export type PossibleFormStates = FormErrorState | FormSuccessstate;
+
+export default async function submit(
+  prevState: PossibleFormStates,
+  formData: FormData
+): Promise<PossibleFormStates> {
   console.log("formdata", JSON.stringify(formData));
+  console.log("preveState", JSON.stringify(prevState));
 
   const session = await getSession();
 
@@ -30,6 +39,7 @@ export async function POST(request: NextApiRequest, response: NextApiResponse) {
       messages: joiErrorsToMessages(validationError),
       values: formValues,
     };
+
     return { errors };
   }
 
