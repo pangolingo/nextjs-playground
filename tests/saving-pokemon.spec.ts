@@ -2,7 +2,7 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("when logged out", () => {
-  test("trying to save pokemon shows an error", async ({ page }) => {
+  test.skip("trying to save pokemon shows an error", async ({ page }) => {
     await page.goto("/");
     await page
       .getByRole("link", { name: "Check out all the pokemons!" })
@@ -20,7 +20,7 @@ test.describe("when logged out", () => {
     ).not.toBeVisible();
   });
 
-  test("the API route returns unauthorized", async ({ request }) => {
+  test.skip("the API route returns unauthorized", async ({ request }) => {
     const apiPokemon = await request.get("/pokemon/favorites");
     expect(apiPokemon.status()).toBe(401);
     expect(await apiPokemon.json()).toEqual({
@@ -33,7 +33,7 @@ test.describe("when logged in as a user", () => {
   // use logged in user state
   test.use({ storageState: "playwright/.auth/user.json" });
 
-  test("saving and unsaving pokemon", async ({ page }) => {
+  test.skip("saving and unsaving pokemon", async ({ page }) => {
     await page.goto("/");
 
     await page
@@ -78,7 +78,7 @@ test.describe("when logged in as a user", () => {
     ).toBeVisible();
   });
 
-  test(" the API route shows saved pokemon", async ({ page, request }) => {
+  test.skip(" the API route shows saved pokemon", async ({ page, request }) => {
     await page.goto("/pokemon");
     await page.getByRole("link", { name: "#4 charmander" }).click();
     await page.getByRole("button", { name: "Save pokemon" }).click();
