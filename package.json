@@ -12,6 +12,7 @@
     "@auth0/nextjs-auth0": "^3.2.0",
     "clsx": "^2.0.0",
     "next": "latest",
+    "postgres": "^3.3.5",
     "react": "latest",
     "react-dom": "latest"
   },

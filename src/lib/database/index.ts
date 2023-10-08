@@ -1,5 +1,10 @@
-import postgres from 'postgres';
-import { DB_CONNECTION_STRING } from '$env/static/private';
+import postgres from "postgres";
+
+const { DB_CONNECTION_STRING } = process.env;
+
+if (!DB_CONNECTION_STRING) {
+  throw new Error("Unable to load ENV variable");
+}
 
 const sql = postgres(DB_CONNECTION_STRING);
 
