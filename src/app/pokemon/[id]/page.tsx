@@ -50,6 +50,7 @@ export default async function PokemonDetail({ params }: Props) {
         pokemon={pokemon}
         favorite={isSaved}
         link={false}
+        headingLevel="h2"
         // --view-transition-name={`pokemon-card-${pokemon.id}`}
       />
       <div className="flex flex-col">
