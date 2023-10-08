@@ -1,3 +1,5 @@
+"use client";
+
 const pika = () => {
   alert("PIKA PIKA!");
 };

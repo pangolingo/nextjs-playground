@@ -2,11 +2,17 @@ import PokemonPreview from "@/components/PokemonPreview";
 import { SavedPokemon, getSavedPokemon } from "@/lib/database/saved-pokemon";
 import { getPageNumberFromSearchParams } from "@/lib/helpers/pagination";
 import { listPokemonPage } from "@/lib/pokemon-api";
+import { Metadata } from "next";
 import Link from "next/link";
 
 interface Props {
   searchParams: { [key: string]: string | string[] | string[][] | undefined };
 }
+
+export const metadata: Metadata = {
+  title: "All Pokemon - Pokeland",
+};
+
 export default async function Pokemon({
   searchParams: searchParamsObj,
 }: Props) {

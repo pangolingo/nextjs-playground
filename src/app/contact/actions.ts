@@ -19,9 +19,6 @@ export default async function submit(
   prevState: PossibleFormStates,
   formData: FormData
 ): Promise<PossibleFormStates> {
-  console.log("formdata", JSON.stringify(formData));
-  console.log("preveState", JSON.stringify(prevState));
-
   const session = await getSession();
 
   const formValues: ErrorResponse<ExpectedFormData>["values"] = {
