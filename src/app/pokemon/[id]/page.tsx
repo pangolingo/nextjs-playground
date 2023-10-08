@@ -1,11 +1,8 @@
 import PokemonPreview from "@/components/PokemonPreview";
-import { getPageNumberFromSearchParams } from "@/lib/helpers/pagination";
 import { API_BASE_URL, getSinglePokemon } from "@/lib/pokemon-api";
+import { Metadata } from "next";
 
-interface Props {
-  params: { id: string };
-}
-export default async function PokemonDetail({ params }: Props) {
+const getPokemonFromPageSlug = async (params: Params) => {
   // TODO: check for id
   if (params.id == null) {
     // TODO: throw 404 guard error - do we need error boundary?
@@ -20,6 +17,28 @@ export default async function PokemonDetail({ params }: Props) {
     `${API_BASE_URL}/pokemon/${params.id}`,
     fetch
   );
+  return pokemon;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const pokemon = await getPokemonFromPageSlug(params);
+
+  return {
+    title: `${pokemon.name.toUpperCase()} - Pokeland`,
+  };
+}
+
+interface Params {
+  id: string;
+}
+
+interface Props {
+  params: Params;
+}
+export default async function PokemonDetail({ params }: Props) {
+  // TODO: no multiple await
+  const pokemon = await getPokemonFromPageSlug(params);
+
   // TODO: get favorites info
   // isSaved: session?.user?.sub ? isSaved(id, session?.user.sub) : false
   const isSaved = false;
@@ -31,6 +50,7 @@ export default async function PokemonDetail({ params }: Props) {
         pokemon={pokemon}
         favorite={isSaved}
         link={false}
+        headingLevel="h2"
         // --view-transition-name={`pokemon-card-${pokemon.id}`}
       />
       <div className="flex flex-col">

@@ -8,14 +8,17 @@ interface Props {
   link?: boolean;
   favorite?: boolean;
   pokemon: Pokemon;
+  headingLevel?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
 export default function PokemonPreview({
   link = true,
   favorite = false,
+  headingLevel = "h3",
   pokemon,
 }: Props) {
   const El = link ? Link : "section";
+  const HeadingEl = headingLevel;
   return (
     <El
       className={clsx([
@@ -35,9 +38,9 @@ export default function PokemonPreview({
           />
         )}
       </span>
-      <h3 className="h3 uppercase pb-4">
+      <HeadingEl className="h3 uppercase pb-4">
         #{pokemon.id} {pokemon.name}
-      </h3>
+      </HeadingEl>
     </El>
   );
 }

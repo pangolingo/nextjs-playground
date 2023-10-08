@@ -46,7 +46,6 @@ export default function ContactForm() {
     if (!("success" in formState)) {
       return;
     }
-    console.log("form state has success - resetting");
     if (formRef.current) {
       formRef.current.reset();
     }
@@ -78,7 +77,7 @@ export default function ContactForm() {
     <form className="space-y-4 max-w-[16rem]" action={formAction} ref={formRef}>
       {"errors" in formState && (
         <div className="message message--error">
-          <p>Oops, we couldn&apos;t save the formState.</p>
+          <p>Oops, we couldn&apos;t save the form.</p>
         </div>
       )}
       {"success" in formState && (

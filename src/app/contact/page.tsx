@@ -3,7 +3,12 @@
 // import { ExpectedFormData } from "@/lib/validation/contact";
 // import submit from "./actions";
 // import SubmitButton from "./SubmitButton";
+import { Metadata } from "next";
 import ContactForm from "./ContactForm";
+
+export const metadata: Metadata = {
+  title: "Contact - Pokeland",
+};
 
 export default function Contact() {
   return (

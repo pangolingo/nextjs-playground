@@ -1,7 +1,10 @@
-"use client";
-
 import PikaDialog from "@/components/PikaDialog";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "About - Pokeland",
+};
 
 export default function About() {
   return (
