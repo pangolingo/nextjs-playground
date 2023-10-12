@@ -1,6 +1,9 @@
 import PokemonPreview from "@/components/PokemonPreview";
 import { API_BASE_URL, getSinglePokemon } from "@/lib/pokemon-api";
 import { Metadata } from "next";
+import SaveForm from "./SaveForm";
+import { getSession } from "@auth0/nextjs-auth0";
+import { isSaved as isSavedInDb } from "@/lib/database/saved-pokemon";
 
 const getPokemonFromPageSlug = async (params: Params) => {
   // TODO: check for id
@@ -38,10 +41,11 @@ interface Props {
 export default async function PokemonDetail({ params }: Props) {
   // TODO: no multiple await
   const pokemon = await getPokemonFromPageSlug(params);
+  const session = await getSession();
 
-  // TODO: get favorites info
-  // isSaved: session?.user?.sub ? isSaved(id, session?.user.sub) : false
-  const isSaved = false;
+  const isSaved: boolean = session?.user?.sub
+    ? await isSavedInDb(pokemon.id, session?.user.sub)
+    : false;
   // TODO: need a loading state otherwise it uses the parent loading state
 
   return (
@@ -63,22 +67,7 @@ export default async function PokemonDetail({ params }: Props) {
           </ul>
         </section>
 
-        {/* <form method="post" action="?/save" use:enhance>
-      <input type="hidden" name="pokemon_id" value={data.pokemon.id} />
-      <input type="hidden" name="pokemon_name" value={data.pokemon.name} />
-      {#if form?.success}
-        {#if data.isSaved}<p>Saved!</p>{/if}
-        {#if !data.isSaved}<p>Unsaved!</p>{/if}
-      {/if}
-      {#if form?.unauthorized}
-        <p>Please log in to save this pokemon.</p>
-      {/if}
-      {#if data.isSaved}
-        <button className="btn" type="submit" formaction="?/unsave">💔 Remove saved pokemon</button>
-      {:else}
-        <button className="btn" type="submit">❤️ Save pokemon</button>
-      {/if}
-    </form> */}
+        <SaveForm pokemon={pokemon} isSaved={isSaved} />
       </div>
     </div>
   );

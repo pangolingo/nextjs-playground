@@ -2,6 +2,7 @@ import PokemonPreview from "@/components/PokemonPreview";
 import { SavedPokemon, getSavedPokemon } from "@/lib/database/saved-pokemon";
 import { getPageNumberFromSearchParams } from "@/lib/helpers/pagination";
 import { listPokemonPage } from "@/lib/pokemon-api";
+import { getSession } from "@auth0/nextjs-auth0";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default async function Pokemon({
   searchParams: searchParamsObj,
 }: Props) {
+  const session = await getSession();
   // TODO: can we make an error boundary with <p>Error loading pokemon: {error.message}</p>
   const searchParams = new URLSearchParams(
     // we cast for simplicity, even though this will ignore array values
@@ -25,14 +27,14 @@ export default async function Pokemon({
   // BUG: pagenumber can become NaN - need a check in this method
   const pageNumber = getPageNumberFromSearchParams(searchParams);
 
-  // TODO: don't await, user check for favorites
+  // TODO: can we consolidate awaits?
   const pokemonPage = await listPokemonPage(pageNumber, fetch);
   let favoritePokemonIds: number[] = [];
-  // if (session?.user) {
-  //   favoritePokemonIds = await getSavedPokemon(session.user.sub).then((f) =>
-  //     f.map((p) => p.pokemon_id)
-  //   );
-  // }
+  if (session?.user) {
+    favoritePokemonIds = await getSavedPokemon(session.user.sub).then((f) =>
+      f.map((p) => p.pokemon_id)
+    );
+  }
 
   // TODO: view transition
 

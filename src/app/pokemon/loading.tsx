@@ -18,7 +18,7 @@ export default function Loading({ searchParams: searchParamsObj }: Props) {
       <h2>20 pokemon (page {pageNumber})</h2>
 
       <ul className="pokegrid">
-        {[...Array(20)].map((i) => {
+        {[...Array(20)].map((_, i) => {
           return (
             <li key={i}>
               <PokemonPreviewSkeleton />
